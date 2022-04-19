@@ -15,22 +15,27 @@ import NotFound from './Components/Pages/NotFound/NotFound';
 import Games from './Components/Pages/Games/Games';
 import About from './Components/Pages/About/About';
 import SignUp from './Components/Pages/SignUp/SignUp';
+import AuthProvider from './Components/Contexts/AuthProvider';
+import Details from './Components/Pages/Games/Details';
 
 function App() {
   return (
  
-    <BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
     <Navbar></Navbar>
     <Routes>
     <Route index element={<Home />} />
     <Route path='login' element={<Login />} />
     <Route path='signup' element={<SignUp />} />
     <Route path='games' element={<Games />} />
+    <Route path='games/:id' element={<Details />} />
     <Route path='about' element={<About />} />
     <Route path='*' element={<NotFound />} />
     </Routes>
     <Footer></Footer>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
