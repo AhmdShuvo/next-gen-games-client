@@ -16,7 +16,7 @@ const Details = () => {
     const [order,setOrder]=useState({})
 
     useEffect(()=>{
-        fetch("http://localhost:9000/games").then(res=>res.json()).then(data=>{
+        fetch("https://warm-retreat-57868.herokuapp.com/games").then(res=>res.json()).then(data=>{
 
 
         const match=data.find(car=>car._id===id);
@@ -60,7 +60,7 @@ const Details = () => {
         userData.status="pending"
                   
  //   POST REQUEST //
-    fetch(`http://localhost:9000/orders`,{
+    fetch(`https://warm-retreat-57868.herokuapp.com/orders`,{
        method:'POST',
        headers:{ "content-type": 'application/json'},
               body:JSON.stringify(userData)
@@ -79,7 +79,7 @@ const Details = () => {
     <h1 className="text-xl">Place Order</h1>
           <section className="flex justify-evenly ">
           <div class="card lg:card-side bg-base-100 shadow-xl">
-  <figure><img src="https://api.lorem.space/image/album?w=400&h=400" alt="Album"/></figure>
+  <figure><img className='w-2/3' src={order.picture} alt="Album"/></figure>
   <div class="card-body">
     <h2 class="card-title">{order.name}</h2>
     

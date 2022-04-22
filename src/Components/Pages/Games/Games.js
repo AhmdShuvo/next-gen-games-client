@@ -6,14 +6,14 @@ const Games = () => {
     const [games,setGames]=useState([])
 
     useEffect(()=>{
-        fetch("http://localhost:9000/games").then(res=>res.json()).then(data=>setGames(data))
+        fetch("https://warm-retreat-57868.herokuapp.com/games").then(res=>res.json()).then(data=>setGames(data))
 
     },[])
 
     if(games.length===0){
         return <Loader></Loader>
     }
-    console.log(games);
+    
     return (
        <> <h1 className="text-xl font-bold m-7" >Available Now</h1>
        <hr style={{border:"2px solid grey",marginBottom:'20px'}} />

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const Game = ({game}) => {
-    console.log(game);
+  const {setIsLoadng}=useAuth()
+   
     const {name,picture,price,_id}=game
     return (
         <div class="card w-96 bg-base-100 shadow-xl">
@@ -14,7 +16,7 @@ const Game = ({game}) => {
     <h2 class="card-title"> price - BDT {price}</h2>
    
     <div class="card-actions">
-     <Link to={_id}> <button class="btn btn-primary">Buy Now</button></Link>
+     <Link to={_id}>  <button onClick={()=>setIsLoadng(false)} class="btn btn-primary">Buy Now</button></Link>
     </div>
   </div>
 </div>

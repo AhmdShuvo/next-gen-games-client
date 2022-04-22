@@ -11,7 +11,7 @@ const Login = () => {
 
   const location = useLocation()
   const history = useNavigate()
-  const url = location.state?.from.pathname || "/"
+  const url = location.state?.from.pathname || "/dashboard"
 
 
   const handleGoogle = () => {
@@ -28,7 +28,7 @@ const Login = () => {
     const newLogindata = { ...logInData }
     newLogindata[field] = value;
     setData(newLogindata)
-    console.log(newLogindata);
+    
 
 
   }
