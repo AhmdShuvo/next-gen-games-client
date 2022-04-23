@@ -1,11 +1,33 @@
 import { Container } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import useAuth from '../../../Hooks/useAuth';
 import Review from '../../Home/Review/Review'
+import Users from './UsersList/Users';
+
 
 const DashboardHoeme = () => {
+  const {admin}=useAuth()
+
+  const [users,setusers]=useState()
+  console.log(users);
+
+  useEffect(()=>{
+ fetch("https://warm-retreat-57868.herokuapp.com/users").then(res=>res.json()).then(data=>setusers(data))
+  },[])
   return (
    <Container>
-     <Review></Review>
+
+     {admin?<>
+      <center>
+                <h1>We have {users.length} Users </h1>
+            </center>
+     {
+       users.map(user=><Users
+       key={user._id}
+       user={user}
+       ></Users>)
+     }
+     </>:<><Review></Review></>}
    </Container>
   );
 };
