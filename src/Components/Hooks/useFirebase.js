@@ -9,6 +9,7 @@ import {
   updateProfile,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,10 +25,15 @@ const useFirebase = () => {
   const auth = getAuth();
 
   const googleProvider = new GoogleAuthProvider();
+  const facebookProvider=new FacebookAuthProvider();
 
   const GoogleLogin = () => {
     return signInWithPopup(auth, googleProvider);
   };
+
+  const facebookLogin=()=>{
+   return signInWithPopup(auth, facebookProvider)
+  }
 
   // create User ////
   const register = (email, password, name) => {
@@ -140,6 +146,7 @@ const useFirebase = () => {
     saveUsertoDb,
     saveGoogleUsertoDb,
     admin,
+    facebookLogin
   };
 };
 

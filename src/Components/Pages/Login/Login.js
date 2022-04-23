@@ -4,8 +4,8 @@ import useAuth from '../../Hooks/useAuth';
 
 
 const Login = () => {
-  const { Login, setIsLoadng, GoogleLogin, saveGoogleUsertoDb } = useAuth()
-
+  const { user,Login, setIsLoadng, GoogleLogin, saveGoogleUsertoDb,facebookLogin } = useAuth()
+console.log(user);
   const [logInData, setData] = useState({})
   const [error, setError] = useState('')
 
@@ -13,6 +13,29 @@ const Login = () => {
   const history = useNavigate()
   const url = location.state?.from.pathname || "/dashboard"
 
+  const handleFacebook=()=>{
+    facebookLogin().then((result) => {
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+  
+  
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+     
+      saveGoogleUsertoDb(result.user.email, result.user.displayName)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+    
+      // ...
+    }).finally(()=>history(url))
+  }
 
   const handleGoogle = () => {
     GoogleLogin().then(result => {
@@ -108,7 +131,7 @@ const Login = () => {
                 <hr className="border-gray-300 border-1 w-full rounded-md" />
               </div>
               <div className="flex mt-7 justify-center w-full">
-                <button className="mr-5 bg-blue-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                <button onClick={handleFacebook} className="mr-5 bg-blue-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                   Facebook
                 </button>
                 <button onClick={handleGoogle} className="bg-red-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
