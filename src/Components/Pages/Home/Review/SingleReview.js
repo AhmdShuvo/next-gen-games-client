@@ -5,7 +5,7 @@ const SingleReview = ({review}) => {
   
     const {Feedback}=review
     return (
-        <Container style={{ borderRadius:'10px'}} className="shadow-2xl m-4 shadow-zinc-800">
+        <Container style={{ borderRadius:'10px',border:'3px solid red'}} className=" bg-zinc-400 text-white border-3 border-red-500 shadow-2xl m-4 shadow-zinc-800">
           
 <article style={{padding:"20px",}}>
 

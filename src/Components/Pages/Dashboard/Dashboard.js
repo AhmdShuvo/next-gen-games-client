@@ -1,10 +1,12 @@
+ 
+
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -16,7 +18,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
 import { Link, Outlet } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RateReviewIcon from '@mui/icons-material/RateReview';
@@ -26,176 +28,180 @@ import AddIcon from '@mui/icons-material/Add';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
+
+
+
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-        }),
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
     }),
+    marginRight: -drawerWidth,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginRight: 0,
+    }),
+  }),
 );
 
 const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
+    marginRight: drawerWidth,
+  }),
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerLeft() {
-    const { user, LogOUt, admin } = useAuth();
+export default function PersistentDrawerRight() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const { user, LogOUt, admin } = useAuth();
+  
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
+           {admin?"Admin Dashboard":"User Dashboard"}
+          </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            sx={{ ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Main open={open}>
+        <DrawerHeader />
+        <Outlet></Outlet>
+      </Main>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+          },
+        }}
+        variant="persistent"
+        anchor="right"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
 
-    return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Dashboard
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={open}
-            >
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
+<Link to='/' >
+    <ListItem button key={"Home"}>
+        <ListItemIcon>
+            <HomeWorkIcon />
+        </ListItemIcon>
+        <ListItemText primary={'Home'} />
+    </ListItem></Link>
+{!admin && <Link to="orders"> <ListItem button key={"My Orders"}>
+    <ListItemIcon>
+        <ShoppingCartIcon />
+    </ListItemIcon>
+    <ListItemText primary={'My Orders'} />
+</ListItem></Link>}
 
-                    <Link to='/' >
-                        <ListItem button key={"Home"}>
-                            <ListItemIcon>
-                                <HomeWorkIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Home'} />
-                        </ListItem></Link>
-                    {!admin && <Link to="orders"> <ListItem button key={"My Orders"}>
-                        <ListItemIcon>
-                            <ShoppingCartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'My Orders'} />
-                    </ListItem></Link>}
-
-                    {admin && <Link to="manage">  <ListItem button key={"Manage"}>
-                        <ListItemIcon>
-                            <ManageAccountsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'Manage'} />
-                    </ListItem></Link>}
-                    {admin && <Link to="all">  <ListItem button key={"All Games"}>
-                        <ListItemIcon>
-                            <ManageAccountsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'All Games'} />
-                    </ListItem></Link>}
-
-
-                    {admin && <Link to="newproduct">  <ListItem button key={"Manage"}>
-                        <ListItemIcon>
-                            <AddIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'AddNewProduct'} />
-                    </ListItem></Link>}
-                    {admin && <Link to="makeadmin">  <ListItem button key={"Manage"}>
-                        <ListItemIcon>
-                            <AdminPanelSettingsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'Make Admin'} />
-                    </ListItem></Link>}
+{admin && <Link to="manage">  <ListItem button key={"Manage"}>
+    <ListItemIcon>
+        <ManageAccountsIcon />
+    </ListItemIcon>
+    <ListItemText primary={'Manage'} />
+</ListItem></Link>}
+{admin && <Link to="all">  <ListItem button key={"All Games"}>
+    <ListItemIcon>
+        <ManageAccountsIcon />
+    </ListItemIcon>
+    <ListItemText primary={'All Games'} />
+</ListItem></Link>}
 
 
-                    <Link to="addReview">
-                        <ListItem button key={"Review"}>
-                            <ListItemIcon>
-                                <RateReviewIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Review'} />
-                        </ListItem></Link>
+{admin && <Link to="newproduct">  <ListItem button key={"Manage"}>
+    <ListItemIcon>
+        <AddIcon />
+    </ListItemIcon>
+    <ListItemText primary={'AddNewProduct'} />
+</ListItem></Link>}
+{admin && <Link to="makeadmin">  <ListItem button key={"Manage"}>
+    <ListItemIcon>
+        <AdminPanelSettingsIcon />
+    </ListItemIcon>
+    <ListItemText primary={'Make Admin'} />
+</ListItem></Link>}
 
-                </List>
-                <Divider />
-                <List>
 
-                    <Link to={'/'}>  <ListItem onClick={LogOUt} button key="Sign Out">
-                        <ListItemIcon>
-                            <InboxIcon />
+<Link to="addReview">
+    <ListItem button key={"Review"}>
+        <ListItemIcon>
+            <RateReviewIcon />
+        </ListItemIcon>
+        <ListItemText primary={'Review'} />
+    </ListItem></Link>
 
-                        </ListItemIcon>
-                        <ListItemText primary="Sign Out" />
-                    </ListItem>
-                    </Link>
-
-                </List>
-            </Drawer>
-            <Main open={open}>
-                <DrawerHeader />
-                <Outlet />
-            </Main>
-        </Box>
-    );
+</List>
+        <Divider />
+        <List>
+          
+     
+       <ListItem  button key="Sign Out">
+              <ListItemIcon>
+              <InboxIcon />
+              </ListItemIcon>
+              <Link to='/'>
+              <ListItemText onClick={()=>LogOUt()} primary="Sign Out" />
+              </Link>
+            </ListItem>
+       
+        </List>
+      </Drawer>
+    </Box>
+  );
 }
