@@ -19,7 +19,7 @@ const AddNew = () => {
      const handleUpload=e=>{
  
                  const data=CarData
-               fetch("https://warm-retreat-57868.herokuapp.com/games",{
+               fetch("https://nextgen-games-server.onrender.com/games",{
          
               method:"POST",headers:{"content-type":'application/json'},
               body:JSON.stringify(data)

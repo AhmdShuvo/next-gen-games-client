@@ -6,7 +6,7 @@ const ManageOrder = ({order, quantity, removeOrderHandler}) => {
   
     
   const updateStatus = (id) => {
-    fetch(`https://warm-retreat-57868.herokuapp.com/orders/${id}`, {
+    fetch(`https://nextgen-games-server.onrender.com/orders/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',

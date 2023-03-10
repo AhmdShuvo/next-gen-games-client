@@ -6,7 +6,7 @@ const Games = () => {
     const [games,setGames]=useState([])
 
     useEffect(()=>{
-        fetch("https://warm-retreat-57868.herokuapp.com/games").then(res=>res.json()).then(data=>setGames(data))
+        fetch("https://nextgen-games-server.onrender.com/games").then(res=>res.json()).then(data=>setGames(data))
 
     },[])
 

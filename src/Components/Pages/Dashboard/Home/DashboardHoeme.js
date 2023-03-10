@@ -12,7 +12,7 @@ const DashboardHoeme = () => {
   console.log(users);
 
   useEffect(()=>{
- fetch("https://warm-retreat-57868.herokuapp.com/users").then(res=>res.json()).then(data=>setusers(data))
+ fetch("https://nextgen-games-server.onrender.com/users").then(res=>res.json()).then(data=>setusers(data))
   },[])
   return (
    <Container>

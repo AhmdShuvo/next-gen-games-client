@@ -15,7 +15,7 @@ const MakeAdmin = () => {
 
           
                               
-        fetch('https://warm-retreat-57868.herokuapp.com/users',{
+        fetch('https://nextgen-games-server.onrender.com/users',{
           method:'PUT',
           headers:{ "content-type": 'application/json'},
                  body:JSON.stringify(user)

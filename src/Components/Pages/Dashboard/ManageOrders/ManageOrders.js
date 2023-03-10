@@ -8,7 +8,7 @@ const ManageOrders = () => {
         const [success, setSuccess] = useState();
       
         useEffect(() => {
-          fetch(`https://warm-retreat-57868.herokuapp.com/orders`)
+          fetch(`https://nextgen-games-server.onrender.com/orders`)
             .then((res) => res.json())
             .then((data) => {
               setOrders(data);
@@ -18,7 +18,7 @@ const ManageOrders = () => {
         const removeOrderHandler = (id) => {
           const proceed = window.confirm('Are you sure you want to delete?');
           if (proceed === true) {
-            const url = `https://warm-retreat-57868.herokuapp.com/orders/${id}`;
+            const url = `https://nextgen-games-server.onrender.com/orders/${id}`;
             fetch(url, {
               method: 'DELETE',
             })

@@ -8,14 +8,14 @@ const AllGames = () => {
     const [games,setGames]=useState([])
 
     useEffect(()=>{
-        fetch("https://warm-retreat-57868.herokuapp.com/games").then(res=>res.json()).then(data=>setGames(data))
+        fetch("https://nextgen-games-server.onrender.com/games").then(res=>res.json()).then(data=>setGames(data))
 
     },[])
 
     const removeOrderHandler = (id) => {
         const proceed = window.confirm('Are you sure you want to delete?');
         if (proceed === true) {
-          const url = `https://warm-retreat-57868.herokuapp.com/games/${id}`;
+          const url = `https://nextgen-games-server.onrender.com/games/${id}`;
           fetch(url, {
             method: 'DELETE',
           })

@@ -7,7 +7,7 @@ const Review = () => {
 
     useEffect(() => {
 
-        fetch('https://secret-scrubland-96036.herokuapp.com/reviews').then(res => res.json()).then(data => {
+        fetch('https://nextgen-games-server.onrender.com/reviews').then(res => res.json()).then(data => {
             setreviews(data)
         })
     }, [])

@@ -20,7 +20,7 @@ function Payment() {
 
 
  useEffect(()=>{
-fetch("https://warm-retreat-57868.herokuapp.com/orders").then(res=>res.json()).then(data=>{
+fetch("https://nextgen-games-server.onrender.com/orders").then(res=>res.json()).then(data=>{
 
   const match = data.find(plc => plc._id == productId)
   setProoduct(match);

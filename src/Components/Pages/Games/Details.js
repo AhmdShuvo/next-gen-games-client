@@ -16,7 +16,7 @@ const Details = () => {
     const [order,setOrder]=useState({})
 
     useEffect(()=>{
-        fetch("https://warm-retreat-57868.herokuapp.com/games").then(res=>res.json()).then(data=>{
+        fetch("https://nextgen-games-server.onrender.com/games").then(res=>res.json()).then(data=>{
 
 
         const match=data.find(car=>car._id===id);
@@ -60,7 +60,7 @@ const Details = () => {
         userData.status="pending"
                   
  //   POST REQUEST //
-    fetch(`https://warm-retreat-57868.herokuapp.com/orders`,{
+    fetch(`https://nextgen-games-server.onrender.com/orders`,{
        method:'POST',
        headers:{ "content-type": 'application/json'},
               body:JSON.stringify(userData)
